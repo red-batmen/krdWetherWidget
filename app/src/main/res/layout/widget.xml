@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="#ee6b00ee"
+    android:id="@+id/main_layout">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Город"
+                android:id="@+id/text_city"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="+ 33 *"
+                android:id="@+id/text_temperature_today"
+                android:gravity="left"
+                android:textSize="28sp"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="45"
+                        android:id="@+id/text_hummidity"
+                        android:textSize="28sp"
+                        android:layout_gravity="center"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/image_hummidity"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/humidity"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/image_weather_today"
+                        android:src="@drawable/abc_ic_menu_cut_mtrl_alpha"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:baselineAlignBottom="true" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="- 54 *"
+                    android:textSize="28sp"
+                    android:id="@+id/text_temperature_tomorow"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/image_weather_tomorow"
+                    android:src="@drawable/abc_btn_check_material"
+                    android:maxWidth="100dp"
+                    android:minWidth="70dp"
+                    android:minHeight="70dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="- 54 *"
+                    android:textSize="28sp"
+                    android:id="@+id/text_temperature_after_tomorow"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/image_weather_after_tomorow"
+                    android:src="@drawable/abc_btn_check_material"
+                    android:maxWidth="100dp"
+                    android:minWidth="70dp"
+                    android:minHeight="70dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
