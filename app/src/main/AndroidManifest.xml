@@ -6,6 +6,14 @@
     <application android:allowBackup="true" android:label="@string/app_name"
         android:icon="@drawable/krd_weather" android:theme="@style/AppTheme">
 
+        <actvity android:name=".SettingsActivity"
+            android:label="Settings WEatherKrd">
+            <intent-filter >
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+
+        </actvity>
+
         <receiver
             android:name=".WeatherKrdWidget"
             android:icon="@drawable/krd_weather"

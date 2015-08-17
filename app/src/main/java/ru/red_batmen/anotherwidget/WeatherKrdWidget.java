@@ -3,6 +3,8 @@ package ru.red_batmen.anotherwidget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -26,6 +28,9 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.d(LOG_TAG, "onUpdate " + Arrays.toString(appWidgetIds));
 
+        //SharedPreferences sp = context.getSharedPreferences(SettingsActivity.WIDGET_PREF,
+        //    Context.MODE_PRIVATE);
+
         for (int id : appWidgetIds) {
             updateWidget(context, appWidgetManager, id);
         }
@@ -43,11 +48,13 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         Log.d(LOG_TAG, "onDisabled");
     }
 
-    private void updateWidget(final Context context, final AppWidgetManager appWidgetManager, final int widgetId) {
+    private void updateWidget(final Context context, final AppWidgetManager appWidgetManager,
+                              final int widgetId) {
+        //widgetView
 
         //берем по id параметры температуры и т.д.
         wt = new WidgetAsyncTask();
-        wt.execute(34929);
+        wt.execute(widgetId);
 
         wt.delegate = new AsyncResponse() {
 
@@ -102,6 +109,9 @@ public class WeatherKrdWidget extends AppWidgetProvider {
                                 " " +
                                 "\u00B0");
                 widgetView.setImageViewResource(R.id.image_weather_after_tomorow, defineImageWeather(weather.getAfterTomorrowWeatherImage()));
+
+                //String widgetColor = sp.getString(SettingsActivity.WIDGET_COLOR, SettingsActivity.WIDGET_DFAULT_COLOR);
+                //widgetView.setInt(R.id.main_layout, "setBackgroundColor", Color.parseColor(widgetColor));
 
                 appWidgetManager.updateAppWidget(widgetId, widgetView);
             }
