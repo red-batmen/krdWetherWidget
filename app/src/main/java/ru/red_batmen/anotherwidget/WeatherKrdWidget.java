@@ -52,17 +52,19 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         wt.delegate = new AsyncResponse() {
 
             private int defineImageWeather(String input) {
-                int resource = R.drawable.sun;
-                if (input.equals("skc_d")) {
-                    Log.d(LOG_TAG, "skc_d");
-                    resource = R.drawable.sun;
-                    //солнце и дождь
-                } else if (input.equals("bkn_ra_d")) {
-                    Log.d(LOG_TAG, "bkn_ra_d");
-                    resource = R.drawable.rain;
-                } else {
-                    Log.d(LOG_TAG, "other image");
-                    resource = R.drawable.cloud;
+                int resource = R.drawable.skc_d;
+                if (input.equals("bkn_n")) {
+                    resource = R.drawable.bkn_n;
+                } else if (input.equals("bkn_ra_n")) {
+                    resource = R.drawable.bkn_ra_n;
+                } else if (input.equals("ovc")) {
+                    resource = R.drawable.ovc;
+                } else if (input.equals("ovc_ra")) {
+                    resource = R.drawable.ovc_ra;
+                } else if (input.equals("ovc_ts_ra")) {
+                    resource = R.drawable.ovc_ts_ra;
+                } else if (input.equals("skc_n")) {
+                    resource = R.drawable.skc_n;
                 }
 
                 return resource;
