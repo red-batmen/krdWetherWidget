@@ -80,6 +80,7 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
         weather.setNowWeatherDegree("ХЗ");
 
         try {
+            //получим xml
             URL url = new URL(urlPath);
             URLConnection conn = url.openConnection();
 
@@ -87,17 +88,15 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(conn.getInputStream());
 
-            //если 3 то молучили дату для завтра и послезавтра
-            //1 + 2 типо завтра + послезавтра
-            int counterForecast = 0;
-
-            NodeList nodes, list, parts, tempData;
+            NodeList nodes, list, dayParts, tempData;
             String dayTemperature = "21", imageWeather = "21";
 
-            //текущая погода
+            //погода на сегодня
             nodes = doc.getElementsByTagName("fact");
             if (nodes.getLength() == 1) {
                 Element line = (Element) nodes.item(0);
+
+                //температура
                 list = line.getElementsByTagName("temperature");
                 if (list.getLength() > 0) {
                     Element elementLine = (Element) list.item(0);
@@ -108,40 +107,44 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
                     }
                 }
 
+                //влажность
                 list = line.getElementsByTagName("humidity");
                 if (list.getLength() > 0) {
                     Element elementLine = (Element) list.item(0);
                     weather.setNowWeatherHumidity(elementLine.getTextContent());
                 }
 
+                //картинка погоды
                 list = line.getElementsByTagName("image-v3");
                 Element elementLine = (Element) list.item(0);
                 weather.setNowWeatherImage(elementLine.getTextContent());
             }
 
+            //погода на завтра и послезавтра
             //http://export.yandex.ru/weather-ng/forecasts/34929.xml
             nodes = doc.getElementsByTagName("day");
             for (int nodeI = 1; nodeI < 3; nodeI++) {
 
                 Element dayNode = (Element) nodes.item(nodeI);
 
-                parts = dayNode.getElementsByTagName("day_part");
+                dayParts = dayNode.getElementsByTagName("day_part");
 
-                for (int partI = 0; partI < parts.getLength(); partI++) {
-                    Element partNode = (Element) nodes.item(partI);
+                Element partNode = (Element) dayParts.item(4);
+
+                /*
+                for (int partI = 0; partI < dayParts.getLength(); partI++) {
+                    Element partNode = (Element) dayParts.item(partI);
 
                     if (!partNode.getAttribute("type").equals("day_short")){
                         continue;
                     }
+                    */
 
-
-                    Log.d(LOG_WEATHER_TASK, "+++++++++++++++++++++++++");
-                    Log.d(LOG_WEATHER_TASK, partNode.getAttribute("type"));
                     //градусы
-                    tempData = partNode.getElementsByTagName("temperature-data");
+                    tempData = partNode.getElementsByTagName("temperature");
 
                     Element el = (Element) tempData.item(0);
-                    el = (Element) el.getElementsByTagName("avg").item(0);
+                    //el = (Element) el.getElementsByTagName("avg").item(0);
                     dayTemperature = el.getTextContent();
 
                     //картинка погоды
@@ -149,19 +152,17 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
                     Element elementLine = (Element) tempData.item(0);
 
                     imageWeather = elementLine.getTextContent();
-                }
+                //}
 
                 //завтра
-                if (counterForecast == 0) {
+                if (nodeI == 1) {
                     weather.setTomorrowWeatherDegree(dayTemperature);
                     if (weather.getTomorrowWeatherDegree().contains("-")) {
                         weather.setTomorrowWeatherSign("-");
                     }
 
                     weather.setTomorrowWeatherImage(imageWeather);
-
-                    counterForecast = 1;
-                } else if (counterForecast == 1) {
+                } else {
                     //после завтра
                     weather.setAfterTomorrowWeatherDegree(dayTemperature);
                     if (weather.getAfterTomorrowWeatherDegree().contains("-")) {
