@@ -14,24 +14,38 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="2">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Город"
+                android:text="Краснодар"
                 android:id="@+id/text_city"
                 android:gravity="left"
                 android:layout_marginLeft="10dp"/>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="+ 33 *"
-                android:id="@+id/text_temperature_today"
-                android:gravity="left"
-                android:textSize="28sp"
-                android:layout_marginLeft="10dp"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ 33 *"
+                    android:id="@+id/text_temperature_today"
+                    android:gravity="left"
+                    android:textSize="28sp"
+                    android:layout_marginLeft="10dp"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/settings"
+                    android:src="@drawable/settings"
+                    android:layout_gravity="right" />
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -39,7 +53,7 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="4">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -57,12 +71,12 @@
                         android:layout_height="wrap_content"
                         android:text="45"
                         android:id="@+id/text_hummidity"
-                        android:textSize="28sp"
+                        android:textSize="24sp"
                         android:layout_gravity="center"/>
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="40dp"
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
                         android:id="@+id/image_hummidity"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/hummidity"/>
@@ -75,9 +89,9 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_height="20dp"
                         android:id="@+id/image_weather_today"
-                        android:src="@drawable/abc_ic_menu_cut_mtrl_alpha"
+                        android:src="@drawable/skc_d"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:baselineAlignBottom="true" />
@@ -95,7 +109,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="- 54 *"
-                    android:textSize="28sp"
+                    android:textSize="24sp"
                     android:id="@+id/text_temperature_tomorow"
                     android:layout_gravity="center"/>
 
@@ -103,7 +117,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/image_weather_tomorow"
-                    android:src="@drawable/abc_btn_check_material"
+                    android:src="@drawable/skc_d"
                     android:maxWidth="100dp"
                     android:minWidth="70dp"
                     android:minHeight="70dp"
@@ -121,7 +135,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="- 54 *"
-                    android:textSize="28sp"
+                    android:textSize="24sp"
                     android:id="@+id/text_temperature_after_tomorow"
                     android:layout_gravity="center"/>
 
@@ -129,7 +143,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/image_weather_after_tomorow"
-                    android:src="@drawable/abc_btn_check_material"
+                    android:src="@drawable/skc_d"
                     android:maxWidth="100dp"
                     android:minWidth="70dp"
                     android:minHeight="70dp"
