@@ -2,10 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#ee6b00ee"
     android:id="@+id/main_layout"
-    tools:showIn="@layout/widget_metadata">
+    tools:showIn="@layout/widget_metadata"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -15,7 +19,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="2">
 
             <TextView
@@ -23,30 +27,39 @@
                 android:layout_height="wrap_content"
                 android:text="Краснодар"
                 android:id="@+id/text_city"
-                android:gravity="left"
-                android:layout_marginLeft="10dp"/>
+                android:gravity="left" />
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+ 33 *"
+                    android:text="+ 33 °"
                     android:id="@+id/text_temperature_today"
                     android:gravity="left"
                     android:textSize="28sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/image_weather_today"
+                    android:src="@drawable/skc_d"
+                    android:layout_width="20dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:id="@+id/settings"
                     android:src="@drawable/settings"
-                    android:layout_gravity="center|right"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_weight="4" />
             </LinearLayout>
 
 
@@ -56,7 +69,7 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4">
+            android:layout_weight="6">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -70,31 +83,26 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="45"
+                        android:text="45%"
                         android:id="@+id/text_hummidity"
                         android:textSize="24sp"
-                        android:layout_gravity="center"/>
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="20dp"
-                        android:id="@+id/image_hummidity"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/hummidity"/>
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|center_horizontal">
                     <ImageView
-                        android:layout_gravity="center"
-                        android:layout_width="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:id="@+id/image_weather_today"
-                        android:src="@drawable/skc_d"
+                        android:id="@+id/image_hummidity"
+                        android:src="@drawable/hummidity"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:baselineAlignBottom="true" />
@@ -105,53 +113,51 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="- 54 *"
+                    android:text="- 54°"
                     android:textSize="24sp"
                     android:id="@+id/text_temperature_tomorow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal" />
 
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/image_weather_tomorow"
                     android:src="@drawable/skc_d"
-                    android:maxWidth="100dp"
-                    android:minWidth="70dp"
-                    android:minHeight="70dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_horizontal" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="- 54 *"
+                    android:text="- 54°"
                     android:textSize="24sp"
                     android:id="@+id/text_temperature_after_tomorow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal" />
 
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:id="@+id/image_weather_after_tomorow"
                     android:src="@drawable/skc_d"
-                    android:maxWidth="100dp"
-                    android:minWidth="70dp"
-                    android:minHeight="70dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
 
