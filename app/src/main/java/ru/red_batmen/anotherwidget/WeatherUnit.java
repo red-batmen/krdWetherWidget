@@ -123,24 +123,15 @@ public class WeatherUnit {
     }
 
     public String getNowWeatherDegreeUnsigned() {
-        if (nowWeatherDegree != null){
-            return nowWeatherDegree.replace("-", "");
-        }
-        return "";
+        return nowWeatherDegree.replace("-", "");
     }
 
     public String getTomorrowWeatherDegreeUnsigned() {
-        if (tomorrowWeatherDegree != null){
-            return tomorrowWeatherDegree.replace("-", "");
-        }
-        return "";
+        return tomorrowWeatherDegree.replace("-", "");
     }
 
     public String getAfterTomorrowWeatherDegreeUnsigned() {
-        if (afterTomorrowWeatherDegree != null){
-            return afterTomorrowWeatherDegree.replace("-", "");
-        }
-        return "";
+        return afterTomorrowWeatherDegree.replace("-", "");
     }
 
     public void setNowWeatherDegree(String weatherDegree) {
