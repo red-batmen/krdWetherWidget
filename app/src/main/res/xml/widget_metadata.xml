@@ -2,7 +2,7 @@
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/widget"
-    android:minHeight="300dp"
+    android:minHeight="200dp"
     android:minWidth="300dp"
     android:configure="ru.red_batmen.anotherwidget.SettingsActivity"
     android:updatePeriodMillis="100000">

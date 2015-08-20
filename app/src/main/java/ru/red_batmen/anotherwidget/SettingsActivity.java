@@ -2,13 +2,18 @@ package ru.red_batmen.anotherwidget;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by red on 17.08.15.
  */
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Activity implements View.OnClickListener {
 
     int widgetID = AppWidgetManager.INVALID_APPWIDGET_ID;
     Intent resultValue;
@@ -17,7 +22,9 @@ public class SettingsActivity extends Activity {
 
     public final static String WIDGET_PREF = "widget_pref";
     public final static String WIDGET_COLOR = "widget_color";
-    public final static String WIDGET_DFAULT_COLOR = "ebebeb";
+    public final static int WIDGET_DFAULT_COLOR = Color.parseColor("ebebeb");
+
+    Button btnSaveConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -44,8 +51,25 @@ public class SettingsActivity extends Activity {
         setResult(RESULT_CANCELED, resultValue);
 
         setContentView(R.layout.settings);
+
+        btnSaveConfig = (Button) findViewById(R.id.btnSaveConfig);
+        btnSaveConfig.setOnClickListener(this);
     }
 
+    public void onClick(View v) {
+        // Записываем значения с экрана в Preferences
+        SharedPreferences sp = getSharedPreferences(WIDGET_PREF, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(WIDGET_COLOR + widgetID, 21);
+        editor.commit();
 
+        // положительный ответ
+        setResult(RESULT_OK, resultValue);
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        WeatherKrdWidget.updateWidget(this, appWidgetManager, widgetID, sp);
+
+        finish();
+    }
 
 }

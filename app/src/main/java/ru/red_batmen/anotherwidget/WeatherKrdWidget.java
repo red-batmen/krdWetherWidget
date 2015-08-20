@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.audiofx.BassBoost;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -12,6 +13,9 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 //http://yandex.st/weather/1.1.78/i/icons/48x48/<?php echo $value1['image']; ?>.png
+//http://wptrafficanalyzer.in/blog/android-app-widget-with-configuration-activity/
+//http://maarkus.ru/wp-content/uploads/projects/weather/example/
+//http://export.yandex.ru/weather-ng/forecasts/34929.xml
 
 /**
  * Created by red on 08.07.15.
@@ -20,19 +24,17 @@ public class WeatherKrdWidget extends AppWidgetProvider {
 
     final String LOG_TAG = "myLogs";
 
-    WidgetAsyncTask wt;
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.d(LOG_TAG, "onUpdate " + Arrays.toString(appWidgetIds));
 
-        //SharedPreferences sp = context.getSharedPreferences(SettingsActivity.WIDGET_PREF,
-        //    Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(SettingsActivity.WIDGET_PREF,
+            Context.MODE_PRIVATE);
 
         for (int id : appWidgetIds) {
-            updateWidget(context, appWidgetManager, id);
+            updateWidget(context, appWidgetManager, id, sp);
         }
     }
 
@@ -40,6 +42,15 @@ public class WeatherKrdWidget extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
         Log.d(LOG_TAG, "onDeleted " + Arrays.toString(appWidgetIds));
+
+        // Удаляем Preferences
+        SharedPreferences.Editor editor = context.getSharedPreferences(
+                SettingsActivity.WIDGET_PREF, Context.MODE_PRIVATE).edit();
+
+        for (int widgetID : appWidgetIds) {
+            editor.remove(SettingsActivity.WIDGET_COLOR + widgetID);
+        }
+        editor.commit();
     }
 
     @Override
@@ -48,12 +59,10 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         Log.d(LOG_TAG, "onDisabled");
     }
 
-    private void updateWidget(final Context context, final AppWidgetManager appWidgetManager,
-                              final int widgetId) {
-        //widgetView
-
+    public static void updateWidget(final Context context, final AppWidgetManager appWidgetManager,
+                              final int widgetId, final SharedPreferences sp) {
         //берем по id параметры температуры и т.д.
-        wt = new WidgetAsyncTask();
+        WidgetAsyncTask wt = new WidgetAsyncTask();
         wt.execute(widgetId);
 
         wt.delegate = new AsyncResponse() {
@@ -113,8 +122,8 @@ public class WeatherKrdWidget extends AppWidgetProvider {
                                 "\u00B0");
                 widgetView.setImageViewResource(R.id.image_weather_after_tomorow, defineImageWeather(weather.getAfterTomorrowWeatherImage()));
 
-                //String widgetColor = sp.getString(SettingsActivity.WIDGET_COLOR, SettingsActivity.WIDGET_DFAULT_COLOR);
-                //widgetView.setInt(R.id.main_layout, "setBackgroundColor", Color.parseColor(widgetColor));
+                int widgetColor = sp.getInt(SettingsActivity.WIDGET_COLOR, SettingsActivity.WIDGET_DFAULT_COLOR);
+                widgetView.setInt(R.id.main_layout, "setBackgroundColor", widgetColor);
 
                 appWidgetManager.updateAppWidget(widgetId, widgetView);
             }

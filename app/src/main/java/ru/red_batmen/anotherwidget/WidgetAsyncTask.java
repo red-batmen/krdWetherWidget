@@ -121,8 +121,6 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
             }
 
             //погода на завтра и послезавтра
-            //http://maarkus.ru/wp-content/uploads/projects/weather/example/
-            //http://export.yandex.ru/weather-ng/forecasts/34929.xml
             nodes = doc.getElementsByTagName("day");
             for (int nodeI = 1; nodeI < 3; nodeI++) {
 
