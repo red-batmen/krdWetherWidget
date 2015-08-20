@@ -20,6 +20,16 @@ public class WeatherUnit {
     private String afterTomorrowWeatherDegree;
     private String afterTomorrowWeatherSign = "+";
 
+    public boolean isParsed() {
+        return isParsed;
+    }
+
+    public void setIsParsed(boolean isParsed) {
+        this.isParsed = isParsed;
+    }
+
+    private  boolean isParsed = false;
+
     public String getAfterTomorrowWeatherSign() {
         return afterTomorrowWeatherSign;
     }
@@ -113,15 +123,24 @@ public class WeatherUnit {
     }
 
     public String getNowWeatherDegreeUnsigned() {
-        return nowWeatherDegree.replace("-", "");
+        if (nowWeatherDegree != null){
+            return nowWeatherDegree.replace("-", "");
+        }
+        return "";
     }
 
     public String getTomorrowWeatherDegreeUnsigned() {
-        return tomorrowWeatherDegree.replace("-", "");
+        if (tomorrowWeatherDegree != null){
+            return tomorrowWeatherDegree.replace("-", "");
+        }
+        return "";
     }
 
     public String getAfterTomorrowWeatherDegreeUnsigned() {
-        return afterTomorrowWeatherDegree.replace("-", "");
+        if (afterTomorrowWeatherDegree != null){
+            return afterTomorrowWeatherDegree.replace("-", "");
+        }
+        return "";
     }
 
     public void setNowWeatherDegree(String weatherDegree) {

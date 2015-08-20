@@ -60,18 +60,21 @@ public class WeatherKrdWidget extends AppWidgetProvider {
 
             private int defineImageWeather(String input) {
                 int resource = R.drawable.skc_d;
-                if (input.equals("bkn_n")) {
-                    resource = R.drawable.bkn_n;
-                } else if (input.equals("bkn_ra_n")) {
-                    resource = R.drawable.bkn_ra_n;
-                } else if (input.equals("ovc")) {
-                    resource = R.drawable.ovc;
-                } else if (input.equals("ovc_ra")) {
-                    resource = R.drawable.ovc_ra;
-                } else if (input.equals("ovc_ts_ra")) {
-                    resource = R.drawable.ovc_ts_ra;
-                } else if (input.equals("skc_n")) {
-                    resource = R.drawable.skc_n;
+
+                if (input != null){
+                    if (input.equals("bkn_n")) {
+                        resource = R.drawable.bkn_n;
+                    } else if (input.equals("bkn_ra_n")) {
+                        resource = R.drawable.bkn_ra_n;
+                    } else if (input.equals("ovc")) {
+                        resource = R.drawable.ovc;
+                    } else if (input.equals("ovc_ra")) {
+                        resource = R.drawable.ovc_ra;
+                    } else if (input.equals("ovc_ts_ra")) {
+                        resource = R.drawable.ovc_ts_ra;
+                    } else if (input.equals("skc_n")) {
+                        resource = R.drawable.skc_n;
+                    }
                 }
 
                 return resource;

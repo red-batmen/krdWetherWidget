@@ -178,12 +178,16 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
             }
 
         } catch (MalformedURLException e) {
+            Log.d(LOG_WEATHER_TASK, "--------------------");
             e.printStackTrace();
         } catch (IOException e) {
+            Log.d(LOG_WEATHER_TASK, "--------------------");
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
+            Log.d(LOG_WEATHER_TASK, "--------------------");
             e.printStackTrace();
         } catch (SAXException e) {
+            Log.d(LOG_WEATHER_TASK, "--------------------");
             e.printStackTrace();
         }
 
