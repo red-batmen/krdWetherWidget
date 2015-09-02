@@ -1,5 +1,6 @@
 package ru.red_batmen.anotherwidget;
 
+import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.media.audiofx.BassBoost;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -92,6 +94,12 @@ public class WeatherKrdWidget extends AppWidgetProvider {
             @Override
             public void processFinish(WeatherUnit weather) {
                 RemoteViews widgetView = new RemoteViews(context.getPackageName(), R.layout.widget);
+
+                if (weather.hasError){
+
+                    Toast.makeText(context, weather.getErrorText(), Toast.LENGTH_LONG);
+                    return;
+                }
 
                 //сегодня
                 widgetView.setTextViewText(R.id.text_temperature_today,

@@ -28,6 +28,8 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
 
     final String LOG_WEATHER_TASK = "weather_task";
 
+    public final String weatherUrlPath = "http://export.yandex.ru/weather-ng/forecasts/";
+
     /*
     лист для храннеия картинки погоды.
     забить самому - брать заранее подготовленный например из бд
@@ -35,14 +37,6 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
     выбираем по значению и сравниваем индексы
     возвращаем самую плохую погоду
      */
-
-    public WeatherUnit getWeather() {
-        return weather;
-    }
-
-    public void setWeather(WeatherUnit weather) {
-        this.weather = weather;
-    }
 
     private WeatherUnit weather;
 
@@ -74,7 +68,7 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
     }
 
     private WeatherUnit getNearestWeather(int cityId) {
-        String urlPath = "http://export.yandex.ru/weather-ng/forecasts/" + cityId + ".xml";
+        String  urlPath = weatherUrlPath + cityId + ".xml";
 
         weather = new WeatherUnit();
         weather.setNowWeatherDegree("ХЗ");
@@ -175,21 +169,30 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
 
             }
 
+            weather.hasError = false;
         } catch (MalformedURLException e) {
-            Log.d(LOG_WEATHER_TASK, "--------------------");
-            e.printStackTrace();
+            Log.d(LOG_WEATHER_TASK, e.getMessage(), e);
+            weather.setErrorText(e.getMessage());
         } catch (IOException e) {
-            Log.d(LOG_WEATHER_TASK, "--------------------");
-            e.printStackTrace();
+            Log.d(LOG_WEATHER_TASK, e.getMessage(), e);
+            weather.setErrorText("Нет интернета");
         } catch (ParserConfigurationException e) {
-            Log.d(LOG_WEATHER_TASK, "--------------------");
-            e.printStackTrace();
+            Log.d(LOG_WEATHER_TASK, e.getMessage(), e);
+            weather.setErrorText(e.getMessage());
         } catch (SAXException e) {
-            Log.d(LOG_WEATHER_TASK, "--------------------");
             e.printStackTrace();
+            weather.setErrorText(e.getMessage());
         }
 
         return weather;
+    }
+
+    public WeatherUnit getWeather() {
+        return weather;
+    }
+
+    public void setWeather(WeatherUnit weather) {
+        this.weather = weather;
     }
 
 }

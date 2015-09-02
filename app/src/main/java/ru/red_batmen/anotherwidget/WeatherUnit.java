@@ -20,6 +20,10 @@ public class WeatherUnit {
     private String afterTomorrowWeatherDegree;
     private String afterTomorrowWeatherSign = "+";
 
+    public boolean hasError = true;
+
+    public String errorText;
+
     public boolean isParsed() {
         return isParsed;
     }
@@ -136,5 +140,13 @@ public class WeatherUnit {
 
     public void setNowWeatherDegree(String weatherDegree) {
         this.nowWeatherDegree = weatherDegree;
+    }
+
+    public String getErrorText() {
+        return errorText;
+    }
+
+    public void setErrorText(String errorText) {
+        this.errorText = errorText;
     }
 }
