@@ -26,6 +26,10 @@ public class WeatherKrdWidget extends AppWidgetProvider {
 
     final String LOG_TAG = "myLogs";
 
+    static final String PREFERENCE_CITY_ID = "krdWeatherCityid";
+
+    public static int CITY_ID_KRASNODAR = 34929;
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
@@ -63,9 +67,12 @@ public class WeatherKrdWidget extends AppWidgetProvider {
 
     public static void updateWidget(final Context context, final AppWidgetManager appWidgetManager,
                               final int widgetId, final SharedPreferences sp) {
+
+        int cityId = sp.getInt(WeatherKrdWidget.PREFERENCE_CITY_ID + widgetId, WeatherKrdWidget.CITY_ID_KRASNODAR);
+
         //берем по id параметры температуры и т.д.
-        WidgetAsyncTask wt = new WidgetAsyncTask();
-        wt.execute(widgetId);
+        WidgetAsyncTask wt = new WidgetAsyncTask(context);
+        wt.execute(cityId);
 
         wt.delegate = new AsyncResponse() {
 

@@ -22,7 +22,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public final static String WIDGET_PREF = "widget_pref";
     public final static String WIDGET_COLOR = "widget_color";
-    public final static int WIDGET_DFAULT_COLOR = Color.parseColor("ebebeb");
+    public final static int WIDGET_DFAULT_COLOR = Color.parseColor("#ee6b00ee");
 
     Button btnSaveConfig;
 

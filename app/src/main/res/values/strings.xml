@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Погода Краснодара</string>
+    <string name="default_temperature">t°c</string>
+    <string name="default_city">Краснодар</string>
 </resources>

@@ -1,5 +1,6 @@
 package ru.red_batmen.anotherwidget;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,7 +27,13 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
 
-    final String LOG_WEATHER_TASK = "weather_task";
+    final String LOG_WEATHER_TASK = "";
+
+    private Context context;
+
+    public WidgetAsyncTask(Context context){
+        this.context = context;
+    }
 
     public final String weatherUrlPath = "http://export.yandex.ru/weather-ng/forecasts/";
 
@@ -71,7 +78,7 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
         String  urlPath = weatherUrlPath + cityId + ".xml";
 
         weather = new WeatherUnit();
-        weather.setNowWeatherDegree("ХЗ");
+        weather.setNowWeatherDegree(context.getString(R.string.default_temperature));
 
         try {
             //получим xml
@@ -83,7 +90,8 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
             Document doc = builder.parse(conn.getInputStream());
 
             NodeList nodes, list, dayParts, tempData;
-            String dayTemperature = "21", imageWeather = "21";
+            String dayTemperature, // = context.getString(R.string.default_temperature),
+                imageWeather;
 
             //погода на сегодня
             nodes = doc.getElementsByTagName("fact");
