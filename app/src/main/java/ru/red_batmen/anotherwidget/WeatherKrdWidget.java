@@ -24,9 +24,10 @@ import java.util.concurrent.ExecutionException;
  */
 public class WeatherKrdWidget extends AppWidgetProvider {
 
-    final String LOG_TAG = "myLogs";
+    final String LOG_TAG = "Weather_Krd_Widget";
 
     static final String PREFERENCE_CITY_ID = "krdWeatherCityid";
+    static final String PREFERENCE_WIDGET_COLOR = "krdWeatherColor";
 
     public static int CITY_ID_KRASNODAR = 34929;
 
@@ -54,7 +55,8 @@ public class WeatherKrdWidget extends AppWidgetProvider {
                 SettingsActivity.WIDGET_PREF, Context.MODE_PRIVATE).edit();
 
         for (int widgetID : appWidgetIds) {
-            editor.remove(SettingsActivity.WIDGET_COLOR + widgetID);
+            editor.remove(WeatherKrdWidget.PREFERENCE_WIDGET_COLOR + widgetID);
+            editor.remove(WeatherKrdWidget.PREFERENCE_CITY_ID + widgetID);
         }
         editor.commit();
     }
@@ -124,8 +126,10 @@ public class WeatherKrdWidget extends AppWidgetProvider {
                         weather.getTomorrowWeatherSign() +
                                 " " +
                                 weather.getTomorrowWeatherDegreeUnsigned() +
-                                " " +
                                 "\u00B0");
+
+                widgetView.setTextViewText(R.id.text_date_tomorow, weather.getTomorrowDayWeekRu());
+
                 widgetView.setImageViewResource(R.id.image_weather_tomorow, defineImageWeather(weather.getTomorrowWeatherImage()));
 
                 //после завтра
@@ -133,11 +137,13 @@ public class WeatherKrdWidget extends AppWidgetProvider {
                         weather.getAfterTomorrowWeatherSign() +
                                 " " +
                                 weather.getAfterTomorrowWeatherDegreeUnsigned() +
-                                " " +
                                 "\u00B0");
+
+                widgetView.setTextViewText(R.id.text_date_after_tomorow, weather.getAfterTomorrowDayWeekRu());
+
                 widgetView.setImageViewResource(R.id.image_weather_after_tomorow, defineImageWeather(weather.getAfterTomorrowWeatherImage()));
 
-                int widgetColor = sp.getInt(SettingsActivity.WIDGET_COLOR, SettingsActivity.WIDGET_DFAULT_COLOR);
+                int widgetColor = sp.getInt(WeatherKrdWidget.PREFERENCE_WIDGET_COLOR + widgetId, SettingsActivity.WIDGET_DFAULT_COLOR);
                 widgetView.setInt(R.id.main_layout, "setBackgroundColor", widgetColor);
 
                 appWidgetManager.updateAppWidget(widgetId, widgetView);

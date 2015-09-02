@@ -1,9 +1,18 @@
 package ru.red_batmen.anotherwidget;
 
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by red on 09.07.15.
  */
 public class WeatherUnit {
+
+    final String LOG_TAG = "Weather_unit";
 
     private String nowWeatherImage;
     private String nowWeatherHumidity;
@@ -14,11 +23,17 @@ public class WeatherUnit {
     private String tomorrowWeatherHumidity;
     private String tomorrowWeatherDegree;
     private String tomorrowWeatherSign = "+";
+    private Date tomorrowWeatherDayWeek;
 
     private String afterTomorrowWeatherImage;
     private String afterTomorrowWeatherHumidity;
     private String afterTomorrowWeatherDegree;
     private String afterTomorrowWeatherSign = "+";
+    private Date afterTomorrowWeatherDayWeek;
+
+    private Calendar calendar = Calendar.getInstance();
+
+    private SimpleDateFormat simpledateFormat = new SimpleDateFormat("yyyy-mm-dd");
 
     public boolean hasError = true;
 
@@ -33,6 +48,43 @@ public class WeatherUnit {
     }
 
     private  boolean isParsed = false;
+
+    public Date getAfterTomorrowWeatherDayWeek() {
+        return afterTomorrowWeatherDayWeek;
+    }
+
+    public void setAfterTomorrowWeatherDayWeek(String aftrerTomorrowWeatherDayWeek) {
+        try{
+            this.afterTomorrowWeatherDayWeek = simpledateFormat.parse(aftrerTomorrowWeatherDayWeek);
+        }catch (ParseException e){
+            Log.d(LOG_TAG, e.getMessage(), e);
+        }
+    }
+
+    public String getTomorrowDayWeekRu(){
+        calendar.setTime(tomorrowWeatherDayWeek);
+
+        return String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
+    }
+
+    public String getAfterTomorrowDayWeekRu(){
+        calendar.setTime(afterTomorrowWeatherDayWeek);
+
+        return String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
+    }
+
+    public Date getTomorrowWeatherDayWeek() {
+
+        return tomorrowWeatherDayWeek;
+    }
+
+    public void setTomorrowWeatherDayWeek(String tomorrowWeatherDayWeek) {
+        try{
+            this.tomorrowWeatherDayWeek = simpledateFormat.parse(tomorrowWeatherDayWeek);
+        }catch (ParseException e){
+            Log.d(LOG_TAG, e.getMessage(), e);
+        }
+    }
 
     public String getAfterTomorrowWeatherSign() {
         return afterTomorrowWeatherSign;

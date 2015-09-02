@@ -6,7 +6,6 @@ import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -14,9 +13,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,7 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
 
-    final String LOG_WEATHER_TASK = "";
+    final String LOG_TAG = "Weather_task";
 
     private Context context;
 
@@ -132,15 +128,6 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
 
                 Element partNode = (Element) dayParts.item(4);
 
-                /*
-                for (int partI = 0; partI < dayParts.getLength(); partI++) {
-                    Element partNode = (Element) dayParts.item(partI);
-
-                    if (!partNode.getAttribute("type").equals("day_short")){
-                        continue;
-                    }
-                    */
-
                     //градусы
                     tempData = partNode.getElementsByTagName("temperature");
 
@@ -153,7 +140,6 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
                     Element elementLine = (Element) tempData.item(0);
 
                     imageWeather = elementLine.getTextContent();
-                //}
 
                 //завтра
                 if (nodeI == 1) {
@@ -162,6 +148,7 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
                         weather.setTomorrowWeatherSign("-");
                     }
 
+                    weather.setTomorrowWeatherDayWeek(dayNode.getAttribute("date"));
                     weather.setTomorrowWeatherImage(imageWeather);
                 } else {
                     //после завтра
@@ -170,6 +157,7 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
                         weather.setAfterTomorrowWeatherSign("-");
                     }
 
+                    weather.setAfterTomorrowWeatherDayWeek(dayNode.getAttribute("date"));
                     weather.setAfterTomorrowWeatherImage(imageWeather);
 
                     break;
@@ -179,13 +167,13 @@ public class WidgetAsyncTask extends AsyncTask<Integer, Integer, WeatherUnit> {
 
             weather.hasError = false;
         } catch (MalformedURLException e) {
-            Log.d(LOG_WEATHER_TASK, e.getMessage(), e);
+            Log.d(LOG_TAG, e.getMessage(), e);
             weather.setErrorText(e.getMessage());
         } catch (IOException e) {
-            Log.d(LOG_WEATHER_TASK, e.getMessage(), e);
+            Log.d(LOG_TAG, e.getMessage(), e);
             weather.setErrorText("Нет интернета");
         } catch (ParserConfigurationException e) {
-            Log.d(LOG_WEATHER_TASK, e.getMessage(), e);
+            Log.d(LOG_TAG, e.getMessage(), e);
             weather.setErrorText(e.getMessage());
         } catch (SAXException e) {
             e.printStackTrace();
