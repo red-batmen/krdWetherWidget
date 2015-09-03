@@ -139,7 +139,7 @@
                         android:layout_gravity="center"
                         android:gravity="center_horizontal"
                         android:text="..."
-                        android:textSize="24sp" />
+                        android:textSize="22sp" />
 
                     <ImageView
                         android:id="@+id/image_weather_tomorow"
@@ -180,7 +180,7 @@
                         android:layout_gravity="center"
                         android:gravity="center_horizontal"
                         android:text="..."
-                        android:textSize="24sp" />
+                        android:textSize="22sp" />
 
                     <ImageView
                         android:id="@+id/image_weather_after_tomorow"

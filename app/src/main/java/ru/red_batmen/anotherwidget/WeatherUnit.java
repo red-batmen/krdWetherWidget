@@ -33,11 +33,15 @@ public class WeatherUnit {
 
     private Calendar calendar = Calendar.getInstance();
 
-    private SimpleDateFormat simpledateFormat = new SimpleDateFormat("yyyy-mm-dd");
+    private SimpleDateFormat simpledateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public boolean hasError = true;
 
     public String errorText;
+
+    public WeatherUnit(){
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+    }
 
     public boolean isParsed() {
         return isParsed;
@@ -61,16 +65,45 @@ public class WeatherUnit {
         }
     }
 
+    private String defineRuDayWeek(int day){
+        String result = null;
+        switch (day){
+            case 1:
+                result = "Пн";
+                break;
+            case 2:
+                result = "Вт";
+                break;
+            case 3:
+                result = "Ср";
+                break;
+            case 4:
+                result = "Чт";
+                break;
+            case 5:
+                result = "Пт";
+                break;
+            case 6:
+                result = "Сб";
+                break;
+            case 7:
+                result = "Вс";
+                break;
+        }
+
+        return result;
+    }
+
     public String getTomorrowDayWeekRu(){
         calendar.setTime(tomorrowWeatherDayWeek);
 
-        return String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
+        return defineRuDayWeek(calendar.get(Calendar.DAY_OF_WEEK) - 1);
     }
 
     public String getAfterTomorrowDayWeekRu(){
         calendar.setTime(afterTomorrowWeatherDayWeek);
 
-        return String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
+        return defineRuDayWeek(calendar.get(Calendar.DAY_OF_WEEK) - 1);
     }
 
     public Date getTomorrowWeatherDayWeek() {
