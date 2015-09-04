@@ -148,8 +148,7 @@
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/skc_d"
-                        android:layout_marginLeft="10dp" />
+                        android:src="@drawable/skc_d" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -180,6 +179,7 @@
                         android:layout_gravity="center"
                         android:gravity="center_horizontal"
                         android:text="..."
+                        android:layout_marginLeft="5dp"
                         android:textSize="22sp" />
 
                     <ImageView
@@ -189,8 +189,7 @@
                         android:layout_gravity="center_horizontal"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/skc_d"
-                        android:layout_marginLeft="10dp" />
+                        android:src="@drawable/skc_d" />
                 </LinearLayout>
 
             </LinearLayout>

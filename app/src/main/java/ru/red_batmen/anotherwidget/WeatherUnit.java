@@ -86,7 +86,7 @@ public class WeatherUnit {
             case 6:
                 result = "Сб";
                 break;
-            case 7:
+            case 0:
                 result = "Вс";
                 break;
         }

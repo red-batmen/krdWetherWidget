@@ -2,4 +2,17 @@
     <string name="app_name">Погода Краснодара</string>
     <string name="default_temperature">t°c</string>
     <string name="default_city">Краснодар</string>
+    <string name="bg_color_title">Выберите цвет фона</string>
+    <string name="bg_color_summary">Цвет фона:</string>
+    <string name="category_color_summary">Цвет фона</string>
+    <string-array name="cities-titles">
+        <item>Краснодар</item>
+        <item>Сочи</item>
+        <item>Гелентвваген</item>
+    </string-array>
+    <string-array name="cities-values">
+        <item>34929</item>
+        <item>37099</item>
+        <item>34945</item>
+    </string-array>
 </resources>
