@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.audiofx.BassBoost;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -26,19 +27,23 @@ public class WeatherKrdWidget extends AppWidgetProvider {
 
     final String LOG_TAG = "Weather_Krd_Widget";
 
-    static final String PREFERENCE_CITY_ID = "krdWeatherCityid";
-    static final String PREFERENCE_WIDGET_COLOR = "krdWeatherColor";
-
     public static int CITY_ID_KRASNODAR = 34929;
+
+    private static String[] citiesEntries = null;
+    private static String[] citiesValues = null;
+
+    private static Context context;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
+
+        this.context = context;
+
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.d(LOG_TAG, "onUpdate " + Arrays.toString(appWidgetIds));
 
-        SharedPreferences sp = context.getSharedPreferences(SettingsActivity.WIDGET_PREF,
-            Context.MODE_PRIVATE);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         for (int id : appWidgetIds) {
             updateWidget(context, appWidgetManager, id, sp);
@@ -51,12 +56,11 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         Log.d(LOG_TAG, "onDeleted " + Arrays.toString(appWidgetIds));
 
         // Удаляем Preferences
-        SharedPreferences.Editor editor = context.getSharedPreferences(
-                SettingsActivity.WIDGET_PREF, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
 
         for (int widgetID : appWidgetIds) {
-            editor.remove(WeatherKrdWidget.PREFERENCE_WIDGET_COLOR + widgetID);
-            editor.remove(WeatherKrdWidget.PREFERENCE_CITY_ID + widgetID);
+            editor.remove(SettingsActivity.PREFERENCE_WIDGET_COLOR + widgetID);
+            editor.remove(SettingsActivity.PREFERENCE_CITY_ID + widgetID);
         }
         editor.commit();
     }
@@ -67,10 +71,34 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         Log.d(LOG_TAG, "onDisabled");
     }
 
+    public static Integer getArrayKey(String[] array, String value){
+        Integer key = null;
+
+        for(int i=0; i<array.length; i++){
+            if (array[i] == value){
+                key = i;
+                break;
+            }
+        }
+
+        return key;
+    }
+
     public static void updateWidget(final Context context, final AppWidgetManager appWidgetManager,
                               final int widgetId, final SharedPreferences sp) {
 
-        int cityId = sp.getInt(WeatherKrdWidget.PREFERENCE_CITY_ID + widgetId, WeatherKrdWidget.CITY_ID_KRASNODAR);
+        String strCityId = sp.getString(SettingsActivity.PREFERENCE_CITY_ID + widgetId, String.valueOf(WeatherKrdWidget.CITY_ID_KRASNODAR));
+
+        Integer key = getArrayKey(getCitiesValues(), strCityId);
+
+        if (key == null){
+            Toast.makeText(context, "Неверный город", Toast.LENGTH_LONG);
+            return;
+        }
+
+        int cityId = Integer.valueOf(strCityId);
+
+        final String cityText = getCitiesEntries()[key];
 
         //берем по id параметры температуры и т.д.
         WidgetAsyncTask wt = new WidgetAsyncTask(context);
@@ -117,6 +145,7 @@ public class WeatherKrdWidget extends AppWidgetProvider {
                                 weather.getNowWeatherDegreeUnsigned() +
                                 " " +
                                 "\u00B0");
+                widgetView.setTextViewText(R.id.text_city, cityText);
                 widgetView.setTextViewText(R.id.text_hummidity, weather.getNowWeatherHumidity());
                 widgetView.setImageViewResource(R.id.image_weather_today, defineImageWeather(weather.getNowWeatherImage()));
 
@@ -143,11 +172,28 @@ public class WeatherKrdWidget extends AppWidgetProvider {
 
                 widgetView.setImageViewResource(R.id.image_weather_after_tomorow, defineImageWeather(weather.getAfterTomorrowWeatherImage()));
 
-                int widgetColor = sp.getInt(WeatherKrdWidget.PREFERENCE_WIDGET_COLOR + widgetId, SettingsActivity.WIDGET_DFAULT_COLOR);
+                int widgetColor = sp.getInt(SettingsActivity.PREFERENCE_WIDGET_COLOR + widgetId, SettingsActivity.WIDGET_DFAULT_COLOR);
                 widgetView.setInt(R.id.main_layout, "setBackgroundColor", widgetColor);
 
                 appWidgetManager.updateAppWidget(widgetId, widgetView);
             }
         };
     }
+
+    public static String[] getCitiesEntries() {
+        if (citiesEntries == null){
+            citiesEntries = context.getResources().getStringArray(R.array.cities_titles);
+        }
+
+        return citiesEntries;
+    }
+
+    public static String[] getCitiesValues() {
+        if (citiesValues == null){
+            citiesValues = context.getResources().getStringArray(R.array.cities_values);
+        }
+
+        return citiesValues;
+    }
+
 }

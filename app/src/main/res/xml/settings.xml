@@ -2,18 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:title="List Preference"
-        android:summary="This preference allows to select an item in a array"
-        android:key="listPref"
-        android:defaultValue="digiGreen"
-        android:entries="@array/cities-titles"
-        android:entryValues="@array/cities-values" />
+        android:title="Список городов"
+        android:summary="Выберите город для отображения погоды"
+        android:key="widgetCityPref"
+        android:defaultValue="34929"
+        android:entries="@array/cities_titles"
+        android:entryValues="@array/cities_values" />
 
-    <PreferenceCategory android:title="@string/category_color_summary">
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="colorBackground"
-            android:defaultValue="#ebebebeb"
-            android:title="@string/bg_color_title"
-            android:summary="@string/bg_color_summary"/>
-    </PreferenceCategory>
+
 </PreferenceScreen>
