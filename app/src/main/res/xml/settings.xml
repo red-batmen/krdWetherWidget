@@ -9,5 +9,11 @@
         android:entries="@array/cities_titles"
         android:entryValues="@array/cities_values" />
 
+    <PreferenceCategory android:title="Выберите город">
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="color1"
+        android:title="Город"
+        android:summary="@string/bg_color_summary" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

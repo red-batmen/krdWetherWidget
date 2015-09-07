@@ -59,7 +59,8 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
 
         for (int widgetID : appWidgetIds) {
-            editor.remove(SettingsActivity.PREFERENCE_WIDGET_COLOR + widgetID);
+            editor.remove(SettingsActivity.PREFERENCE_WIDGET_BG_COLOR + widgetID);
+            editor.remove(SettingsActivity.PREFERENCE_WIDGET_FONT_COLOR + widgetID);
             editor.remove(SettingsActivity.PREFERENCE_CITY_ID + widgetID);
         }
         editor.commit();
@@ -75,7 +76,7 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         Integer key = null;
 
         for(int i=0; i<array.length; i++){
-            if (array[i] == value){
+            if (array[i].equals(value)){
                 key = i;
                 break;
             }
@@ -105,6 +106,8 @@ public class WeatherKrdWidget extends AppWidgetProvider {
         wt.execute(cityId);
 
         wt.delegate = new AsyncResponse() {
+
+            private String cityText;
 
             private int defineImageWeather(String input) {
                 int resource = R.drawable.skc_d;
@@ -172,8 +175,10 @@ public class WeatherKrdWidget extends AppWidgetProvider {
 
                 widgetView.setImageViewResource(R.id.image_weather_after_tomorow, defineImageWeather(weather.getAfterTomorrowWeatherImage()));
 
-                int widgetColor = sp.getInt(SettingsActivity.PREFERENCE_WIDGET_COLOR + widgetId, SettingsActivity.WIDGET_DFAULT_COLOR);
-                widgetView.setInt(R.id.main_layout, "setBackgroundColor", widgetColor);
+                int widgetBgColor = sp.getInt(SettingsActivity.PREFERENCE_WIDGET_BG_COLOR + widgetId, SettingsActivity.WIDGET_DFAULT_COLOR);
+                int widgetFontColor = sp.getInt(SettingsActivity.PREFERENCE_WIDGET_FONT_COLOR + widgetId, Color.WHITE);
+                widgetView.setInt(R.id.main_layout, "setBackgroundColor", widgetBgColor);
+                //widgetView.setInt(R.id.main_layout, "setTextColor", widgetFontColor);
 
                 appWidgetManager.updateAppWidget(widgetId, widgetView);
             }
